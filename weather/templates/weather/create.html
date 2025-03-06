@@ -1,0 +1,12 @@
+{% extends 'weather/base.html' %}
+{% block title %} Create a new list {% endblock %}
+
+{% block content %}
+<h1>The create new list page</h1>
+
+<form method="post", action="/create/">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit", name="save">Create New</button>
+</form>
+{% endblock %}

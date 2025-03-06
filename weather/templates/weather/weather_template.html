@@ -1,0 +1,24 @@
+{% extends 'weather/base.html'%}
+{% block content %}
+{% block title %} Weather app {% endblock %}
+<div class="weather_container">
+    <h2>Weather Lookup</h2>
+
+        <form method="post">
+            <h1>Weather for today</h1>
+                <input type="text" name="location" placeholder="Enter the city or zip code">
+                {% csrf_token %}
+                <button type="submit">Get weather</button>
+            </form>
+    {% if weather %}
+        {% if weather.error %}
+            <p>Cannot find any information, please enter a valid location.</p>
+        {% else %}
+            <h2>Weather for {{ weather.location.name }}, {{ weather.location.country }}</h2>
+            <p>Temperature: {{ weather.current.temp_c }}°C</p>
+        {% endif %}
+    {% endif %}
+    </form>
+</div>
+<a href="/">Get to main page</a>
+{% endblock %}

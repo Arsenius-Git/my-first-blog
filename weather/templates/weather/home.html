@@ -1,0 +1,15 @@
+{% extends 'weather/base.html'%}
+{% block title %} Home {% endblock %}
+
+{% block content %}
+    <h1>This is the home page</h1>
+    <h2>Check out my projects:</h2>
+    <form>
+        <ul>
+            <li><a href="/todo">the todo list</a></li>
+            <li><a href="/url">the url shortener</a></li>
+            <li><a href="/weather">the weather temp</a></li>
+            <li><a href="/expenses">the expenses app</a></li>
+        </ul>
+    </form>
+{% endblock %}

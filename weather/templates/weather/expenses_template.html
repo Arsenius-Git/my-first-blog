@@ -1,0 +1,83 @@
+{% extends 'weather/base.html' %}
+{% block title %} Expenses tracker page {% endblock %}
+
+{% block content %}
+    <head>
+    <title>Expense Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .balance {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            padding: 20px;
+            background-color: #f5f5f5;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .transaction-form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .transaction-form input[type="text"] {
+            flex: 2;
+            padding: 8px;
+        }
+        .transaction-form input[type="number"] {
+            flex: 1;
+            padding: 8px;
+        }
+        .transaction-form button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .transactions {
+            border-top: 1px solid #ddd;
+        }
+        .transaction {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        .positive {
+            color: green;
+        }
+        .negative {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="balance">
+        Balance: ${{ balance }}
+    </div>
+
+    <form method="post" class="transaction-form">
+        {% csrf_token %}
+        {{ form.description }}
+        {{ form.amount }}
+        <button type="submit">Add</button>
+    </form>
+
+    <div class="transactions">
+        {% for transaction in expenses %}
+        <div class="transaction">
+            <div>{{ transaction.description }}</div>
+            <div class="{% if transaction.amount > 0 %}positive{% else %}negative{% endif %}">
+                ${{ transaction.amount }}
+            </div>
+        </div>
+        {% endfor %}
+        <a href="/">Get to main page</a>
+    </div>
+{% endblock %}

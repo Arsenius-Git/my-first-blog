@@ -1,0 +1,19 @@
+{% extends 'weather/base.html' %}
+{% block title %} Url shortener {% endblock %}
+
+{% block content %}
+    <h1>short url create page</h1>
+<form method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit", name="submit">Submit</button>
+    {% if shortened_url %}
+        <div>
+            <h2>Here is you shortened url:</h2>
+            <a href="{{shortened_url}}" target="blank"> {{ shortened_url }}</a>
+        </div>
+    {% endif %}
+    <a href="/">Check out my other projects!</a>
+</form>
+<a href="/">Get to main page</a>
+{% endblock %}
