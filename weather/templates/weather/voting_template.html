@@ -1,0 +1,27 @@
+{% extends 'weather/base.html' %}
+{% block title %} voting page {% endblock %}
+{% block content %}
+    <h1>The voting page, CRUD of votes will be added soon!</h1>
+
+        <form method="POST" action="#">
+                {% csrf_token %}
+                {{ form.name}}
+                <button type="submit", name="newVote", value="newVote">add new vote</button>
+        </form>
+
+    <div>
+        <ul>
+            {% for item in votes %}
+                {% csrf_token %}
+            <li>{{ item.name }}</li>
+        </ul>
+            <form method="POST" action="#">
+                {% csrf_token %}
+                <input type="hidden" name="delete_name" value="{{ item.name }}">
+                <button type="submit">Delete</button>
+            </form>
+            {% endfor %}
+
+    </div>
+    <a href="/">go back to home page</a>
+    {% endblock %}
