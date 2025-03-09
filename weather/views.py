@@ -103,3 +103,29 @@ def expenses_track(request):
         'balance':balance,
         'form':form,
     })
+
+def voting_page(request):
+    if request.method == 'POST' and 'delete_name' in request.POST:
+        vote_name = request.POST.get('delete_name')
+        try:
+            vote = createVote.objects.get(name=vote_name)
+            vote.delete()
+        except createVote.DoesNotExists:
+            raise KeyError("the object does not exists")
+        return redirect('voting_page')
+
+    if request.method == 'POST':
+        form = showVote(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('voting_page')
+    else:
+        form = showVote()
+
+    votes = createVote.objects.all()
+    context = {
+        'form': form,
+        'votes': votes
+    }
+    return render(request, 'weather/voting_template.html', context)
+
